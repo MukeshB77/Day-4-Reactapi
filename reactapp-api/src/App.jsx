@@ -134,8 +134,8 @@ function App() {
   const[data,setData] = useState([])
   
 useEffect(()=>{
-  const fetchload =async()=>{
-  const res= await fetch( `https://www.omdbapi.com/?s=batman&page=1&apikey=eae6de7d`);
+   async function fetchload(){
+  const res= await fetch( `https://www.omdbapi.com/?s=batman&page=${page}&apikey=eae6de7d`);
   const data = await res.json();
   setData(data.Search ?? []);
   console.log(data);
@@ -146,7 +146,7 @@ useEffect(()=>{
 
 
 
-},[])
+},[page])
 
   return (
     <div>
@@ -162,7 +162,7 @@ useEffect(()=>{
 
 
 
-
+<button onClick={()=>setPage((page)=>page+1)}>Page is {page}</button>
 
 
     </div>
