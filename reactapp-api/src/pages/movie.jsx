@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { Commet } from "react-loading-indicators";
 import Card from "../components/ui/card.jsx";
 import "./movie.css";
+import Formdata from "./formdata.jsx";
+
 
 function movie() {
   const [page, setPage] = useState(1);
@@ -52,6 +54,7 @@ function movie() {
   const render = () => setCount(count + 1);
 
   return (
+    <>
     // hello event
     // world searching
 
@@ -95,7 +98,15 @@ function movie() {
         <button onClick={() => setPage((page) => page + 1)}>Next</button>
       </div>
     </div>
-  );
+ 
+
+
+    <Formdata data={data.item} />
+
+
+    </>
+
+);
 }
 
 export default movie;
