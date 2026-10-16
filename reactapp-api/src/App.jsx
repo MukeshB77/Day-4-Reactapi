@@ -133,8 +133,7 @@ function App() {
   const[page,setPage] = useState(1);
   const[count, setCount] = React.useState(0)
   const[data,setData] = useState([])
-  const[hello,setHello]=useState("batman")
-  
+  const[hello,setHello]=useState("batman") 
 useEffect(()=>{
    async function fetchload(){
   const res= await fetch( `https://www.omdbapi.com/?s=${hello}&page=${page}&apikey=eae6de7d`);
@@ -150,18 +149,22 @@ useEffect(()=>{
 
 
 
-},[page,hello])
+},[page,count])
 
 
 const event=(e)=>{
   setHello(e.target.value);
 }
+const render=()=>setCount(count+1);
+
+
 
   return (
     <div style={{display:"flex",flexDirection:"column"}}>
       <header>
          Movies
         <input className='search' type="text" value={hello} onChange={event} placeholder='Search' />
+        <button style={{margin:"0px", padding:'10px', height:'45px'}} onClick={render}>search</button>
        
         
         
