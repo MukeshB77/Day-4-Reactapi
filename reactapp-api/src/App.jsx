@@ -124,6 +124,7 @@ import React from 'react'
 import { useState } from 'react'
 import {useEffect} from 'react'
 import Card from './components/ui/card'
+import './App.css';
 
 
 function App() {
@@ -132,10 +133,13 @@ function App() {
   const[page,setPage] = useState(1);
   const[count, setCount] = React.useState(0)
   const[data,setData] = useState([])
+  const[hello,setHello]=useState("batman")
   
 useEffect(()=>{
    async function fetchload(){
-  const res= await fetch( `https://www.omdbapi.com/?s=batman&page=${page}&apikey=eae6de7d`);
+  const res= await fetch( `https://www.omdbapi.com/?s=${hello}&page=${page}&apikey=eae6de7d`);
+  // const res= await fetch( `http://www.omdbapi.com/?i=tt3896198&apikey=eae6de7d`);
+
   const data = await res.json();
   setData(data.Search ?? []);
   console.log(data);
@@ -146,23 +150,40 @@ useEffect(()=>{
 
 
 
-},[page])
+},[page,hello])
+
+
+const event=(e)=>{
+  setHello(e.target.value);
+}
 
   return (
-    <div>
+    <div style={{display:"flex",flexDirection:"column"}}>
+      <header>
+         Movies
+        <input className='search' type="text" value={hello} onChange={event} placeholder='Search' />
+       
+        
+        
+        </header>
+    <div className='contain'>
 
       { data?.map((item,key)=>{
         return(
-        <div key={key}>
+        <div className='parts' key={key}>
           <Card title={item.Title} description={item.Year} imageUrl={item.Poster}/>
         </div>
         )
        })
 }
 
+</div>
+<div className='pagenext'>
+  <button onClick={()=>setPage((page)=>page-1)}>Previous</button>
+  <h1>{page}</h1>
+  <button onClick={()=>setPage((page)=>page+1)}>Next</button>
+</div>
 
-
-<button onClick={()=>setPage((page)=>page+1)}>Page is {page}</button>
 
 
     </div>

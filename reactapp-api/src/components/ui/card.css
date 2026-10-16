@@ -1,3 +1,17 @@
 .card{
-    
+    display: flex;
+    flex-wrap: wrap;
+    height: 400px;
+    width: 200px;
+    /* flex-direction: column; */
+    border-radius: 20px;
+    padding: 20px;
+    color: aliceblue;
+    justify-content: center;
+
+    background-color: rgb(114, 114, 113);
+}
+.cardimage{
+    height: 200px;
+    width: 150px;
 }
