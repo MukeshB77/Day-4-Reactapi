@@ -6,11 +6,11 @@ import Card from "../components/ui/card.jsx";
 import "./movie.css";
 import Formdata from "./formdata.jsx";
 
-
 function movie() {
   const [page, setPage] = useState(1);
   const [count, setCount] = React.useState(0);
   const [data, setData] = useState([]);
+  const [addedMovies, setAddedMovies] = useState([]);
   const [hello, setHello] = useState("batman");
 
   const [loading, setLoading] = useState(true);
@@ -52,11 +52,16 @@ function movie() {
   // const world =setTimeout((e)=>{setSearching(e.target.value)},4)
 
   const render = () => setCount(count + 1);
+  const addMovie = (newMovie) => {
+    const allMovies = [...data, ...addedMovies, newMovie];
+    console.log("Movies after adding:", allMovies);
+    setAddedMovies((movies) => [...movies, newMovie]);
+  };
+  const displayedMovies = [...data, ...addedMovies];
 
   return (
     <>
-    // hello event
-    // world searching
+    
 
     <div style={{ display: "flex", flexDirection: "column" }}>
       <header>
@@ -79,12 +84,13 @@ function movie() {
         {loading ? (
           <Commet color="#6b6b6b" size="medium" text="" textColor="" />
         ) : (
-          data?.map((item, key) => {
+          displayedMovies?.map((item, key) => {
             return (
               <div className="parts" key={key}>
                 <Card
                   title={item.Title}
-                  description={item.Year}
+                  year={item.Year}
+                  description={item.Plot}
                   imageUrl={item.Poster}
                 />
               </div>
@@ -101,7 +107,7 @@ function movie() {
  
 
 
-    <Formdata data={data.item} />
+    <Formdata onAddMovie={addMovie} />
 
 
     </>
