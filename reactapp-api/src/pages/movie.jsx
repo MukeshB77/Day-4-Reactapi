@@ -1,17 +1,17 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Commet } from "react-loading-indicators";
 import Card from "../components/ui/card.jsx";
+import MovieDetails from "../components/ui/MovieDetails.jsx";
 import "./movie.css";
 import Formdata from "./formdata.jsx";
 
-function movie() {
+function Movie() {
   const [page, setPage] = useState(1);
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [addedMovies, setAddedMovies] = useState([]);
   const [hello, setHello] = useState("batman");
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -40,13 +40,8 @@ function movie() {
     fetchload();
   }, [page, count]);
 
-  const [searching, setSearching] = useState("");
-
   const event = (e) => {
     setHello(e.target.value);
-    setTimeout(() => {
-      setSearching(e.target.value);
-    }, 2000);
   };
 
   // const world =setTimeout((e)=>{setSearching(e.target.value)},4)
@@ -90,8 +85,8 @@ function movie() {
                 <Card
                   title={item.Title}
                   year={item.Year}
-                  description={item.Plot}
                   imageUrl={item.Poster}
+                  onView={() => setSelectedMovie(item)}
                 />
               </div>
             );
@@ -109,10 +104,16 @@ function movie() {
 
     <Formdata onAddMovie={addMovie} />
 
+    {selectedMovie && (
+      <MovieDetails
+        movie={selectedMovie}
+        onClose={() => setSelectedMovie(null)}
+      />
+    )}
 
     </>
 
 );
 }
 
-export default movie;
+export default Movie;
